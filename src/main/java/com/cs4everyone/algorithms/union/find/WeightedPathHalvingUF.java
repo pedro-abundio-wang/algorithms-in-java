@@ -1,34 +1,36 @@
-package com.cs4everyone.algorithm.union.find;
+package com.cs4everyone.algorithms.union.find;
 
-public class WeightedQuickUnionUF {
+public class WeightedPathHalvingUF {
 
     private int[] parent;
 
-    private int[] size;
+    private byte[] rank;
 
     private int count;
 
-    public WeightedQuickUnionUF(int n) {
+    public WeightedPathHalvingUF(int n) {
         count = n;
         parent = new int[n];
-        size = new int[n];
+        rank = new byte[n];
         for (int i = 0; i < n; i++) {
             parent[i] = i;
-            size[i] = 1;
+            rank[i] = 0;
         }
+    }
+
+    public int find(int p) {
+        while (p != parent[p]) {
+            parent[p] = parent[parent[p]];
+            p = parent[p];
+        }
+        return p;
     }
 
     public int count() {
         return count;
     }
 
-    public int find(int p) {
-        while (p != parent[p]) {
-            p = parent[p];
-        }
-        return p;
-    }
-
+    @Deprecated
     public boolean connected(int p, int q) {
         return find(p) == find(q);
     }
@@ -38,12 +40,12 @@ public class WeightedQuickUnionUF {
         int rootQ = find(q);
         if (rootP == rootQ) return;
 
-        if (size[rootP] < size[rootQ]) {
+        if (rank[rootP] < rank[rootQ]) {
             parent[rootP] = rootQ;
-            size[rootQ] += size[rootP];
+            rank[rootQ]++;
         } else {
             parent[rootQ] = rootP;
-            size[rootP] += size[rootQ];
+            rank[rootP]++;
         }
         count--;
     }

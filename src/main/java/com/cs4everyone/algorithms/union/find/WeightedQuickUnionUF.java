@@ -1,16 +1,20 @@
-package com.cs4everyone.algorithm.union.find;
+package com.cs4everyone.algorithms.union.find;
 
-public class QuickUnionUF {
+public class WeightedQuickUnionUF {
 
     private int[] parent;
 
+    private int[] size;
+
     private int count;
 
-    public QuickUnionUF(int n) {
+    public WeightedQuickUnionUF(int n) {
         count = n;
         parent = new int[n];
+        size = new int[n];
         for (int i = 0; i < n; i++) {
             parent[i] = i;
+            size[i] = 1;
         }
     }
 
@@ -33,7 +37,14 @@ public class QuickUnionUF {
         int rootP = find(p);
         int rootQ = find(q);
         if (rootP == rootQ) return;
-        parent[rootP] = rootQ;
+
+        if (size[rootP] < size[rootQ]) {
+            parent[rootP] = rootQ;
+            size[rootQ] += size[rootP];
+        } else {
+            parent[rootQ] = rootP;
+            size[rootP] += size[rootQ];
+        }
         count--;
     }
 

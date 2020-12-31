@@ -1,4 +1,4 @@
-package com.cs4everyone.algorithm.union.find;
+package com.cs4everyone.algorithms.union.find;
 
 public class QuickFindUF {
 
