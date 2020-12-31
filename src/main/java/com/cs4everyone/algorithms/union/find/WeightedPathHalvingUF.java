@@ -30,8 +30,7 @@ public class WeightedPathHalvingUF {
         return count;
     }
 
-    @Deprecated
-    public boolean connected(int p, int q) {
+    public boolean isConnected(int p, int q) {
         return find(p) == find(q);
     }
 

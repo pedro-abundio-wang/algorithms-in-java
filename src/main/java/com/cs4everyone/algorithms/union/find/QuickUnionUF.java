@@ -25,7 +25,7 @@ public class QuickUnionUF {
         return p;
     }
 
-    public boolean connected(int p, int q) {
+    public boolean isConnected(int p, int q) {
         return find(p) == find(q);
     }
 
