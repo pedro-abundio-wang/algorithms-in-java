@@ -43,7 +43,7 @@ public class WeightedPathHalvingUF {
         if (rank[rootP] < rank[rootQ]) {
             parent[rootP] = rootQ;
             rank[rootQ]++;
-        } else if (rank[rootP] > rank[rootQ]) {
+        } else {
             parent[rootQ] = rootP;
             rank[rootP]++;
         }
