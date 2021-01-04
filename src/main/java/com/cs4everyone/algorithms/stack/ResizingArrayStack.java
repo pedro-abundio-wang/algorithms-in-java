@@ -27,12 +27,11 @@ public class ResizingArrayStack<T> implements Iterable<T> {
   public T pop() {
     if (isEmpty()) throw new NoSuchElementException("Stack underflow");
     T item = array[top - 1];
-    top--;
     array[top - 1] = null;
+    top--;
     if (top > 0 && top == array.length / 4) {
       resize(array.length / 2);
     }
-
     return item;
   }
 
@@ -55,6 +54,8 @@ public class ResizingArrayStack<T> implements Iterable<T> {
       copy[i] = array[i];
     }
     array = copy;
+
+    // array = java.util.Arrays.copyOf(array, capacity);
   }
 
   public Iterator<T> iterator() {
