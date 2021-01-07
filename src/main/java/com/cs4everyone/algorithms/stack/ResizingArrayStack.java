@@ -50,7 +50,7 @@ public class ResizingArrayStack<T> implements Iterable<T> {
 
   private void resize(int capacity) {
     T[] copy = (T[]) new Object[capacity];
-    for (int i = 0; i < capacity; i++) {
+    for (int i = 0; i < top; i++) {
       copy[i] = array[i];
     }
     array = copy;
