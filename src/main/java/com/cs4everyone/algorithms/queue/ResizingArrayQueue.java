@@ -37,7 +37,6 @@ public class ResizingArrayQueue<T> implements Iterable<T> {
   public T peek() {
     if (isEmpty()) throw new NoSuchElementException("Queue underflow");
     T item = array[head];
-    array[head] = null;
     return item;
   }
 
