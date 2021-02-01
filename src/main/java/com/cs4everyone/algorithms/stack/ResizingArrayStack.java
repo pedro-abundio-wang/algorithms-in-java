@@ -71,7 +71,7 @@ public class ResizingArrayStack<T> implements Iterable<T> {
     }
 
     public boolean hasNext() {
-      return top >= 0;
+      return current >= 0;
     }
 
     public T next() {
