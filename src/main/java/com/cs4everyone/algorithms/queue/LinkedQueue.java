@@ -32,7 +32,7 @@ public class LinkedQueue<T> implements Iterable<T> {
 
     public T next() {
       if (!hasNext()) {
-        if (!hasNext()) throw new NoSuchElementException();
+        throw new NoSuchElementException();
       }
       T item = current.item;
       current = current.next;
