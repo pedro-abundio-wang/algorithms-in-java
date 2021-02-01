@@ -83,4 +83,12 @@ public class LinkedQueue<T> implements Iterable<T> {
   public Iterator<T> iterator() {
     return new LinkedIterator(head);
   }
+
+  public String toString() {
+    StringBuilder buffer = new StringBuilder();
+    for (T item : this) {
+      buffer.append(item + " ");
+    }
+    return buffer.toString();
+  }
 }
