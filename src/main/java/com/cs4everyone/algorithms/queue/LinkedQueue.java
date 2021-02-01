@@ -61,13 +61,13 @@ public class LinkedQueue<T> implements Iterable<T> {
   }
 
   public void enqueue(T item) {
-    LinkedNode tailBackup = tail;
+    LinkedNode backup = tail;
     tail = new LinkedNode();
     tail.item = item;
     if (isEmpty()) {
       head = tail;
     } else {
-      tailBackup.next = tail;
+      backup.next = tail;
     }
     this.size++;
   }
