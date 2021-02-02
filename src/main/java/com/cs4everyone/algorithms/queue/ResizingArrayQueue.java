@@ -69,25 +69,23 @@ public class ResizingArrayQueue<T> implements Iterable<T> {
   }
 
   public Iterator<T> iterator() {
-    return new ArrayIterator(head);
+    return new ArrayIterator();
   }
 
   private class ArrayIterator implements Iterator<T> {
 
-    public int current;
+    public int i = 0;
 
-    public ArrayIterator(int current) {
-      this.current = current;
-    }
+    public ArrayIterator() {}
 
     public boolean hasNext() {
-      return current < tail || current > head;
+      return i < size;
     }
 
     public T next() {
-      if(!hasNext()) throw new NoSuchElementException();
-      T item = array[current];
-      current = (current++) % array.length;
+      if (!hasNext()) throw new NoSuchElementException();
+      T item = array[(i + head) % array.length];
+      i++;
       return item;
     }
 
