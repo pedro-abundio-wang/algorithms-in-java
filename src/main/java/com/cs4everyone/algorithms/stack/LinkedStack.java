@@ -57,9 +57,7 @@ public class LinkedStack<T> implements Iterable<T> {
   }
 
   public T peek() {
-    if (isEmpty()) {
-      throw new NoSuchElementException("Stack underflow");
-    }
+    if (isEmpty()) throw new NoSuchElementException("Stack underflow");
     return top.item;
   }
 
