@@ -4,17 +4,17 @@ public class WeightedPathHalvingUF {
 
     private int[] parent;
 
-    private byte[] rank;
+    private int[] size;
 
     private int count;
 
     public WeightedPathHalvingUF(int n) {
         count = n;
         parent = new int[n];
-        rank = new byte[n];
+        size = new int[n];
         for (int i = 0; i < n; i++) {
             parent[i] = i;
-            rank[i] = 0;
+            size[i] = 1;
         }
     }
 
@@ -39,12 +39,12 @@ public class WeightedPathHalvingUF {
         int rootQ = find(q);
         if (rootP == rootQ) return;
 
-        if (rank[rootP] < rank[rootQ]) {
+        if (size[rootP] < size[rootQ]) {
             parent[rootP] = rootQ;
-            rank[rootQ]++;
+            size[rootQ] += size[rootP];
         } else {
             parent[rootQ] = rootP;
-            rank[rootP]++;
+            size[rootP] += size[rootQ];
         }
         count--;
     }
