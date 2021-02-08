@@ -1,4 +1,4 @@
-package com.cs4everyone.algorithms.array;
+package com.cs4everyone.algorithms.applications;
 
 import com.cs4everyone.algorithms.search.BinarySearch;
 import com.cs4everyone.algorithms.sort.Merge;

@@ -1,4 +1,4 @@
-package com.cs4everyone.algorithms.union.find;
+package com.cs4everyone.algorithms.applications;
 
 public class PercolationStats {
 

@@ -1,5 +1,6 @@
-package com.cs4everyone.algorithms.array;
+package com.cs4everyone.algorithms.applications;
 
+import com.cs4everyone.algorithms.applications.Sum;
 import com.cs4everyone.algorithms.utils.In;
 import com.cs4everyone.algorithms.utils.StdOut;
 import com.cs4everyone.algorithms.utils.Stopwatch;

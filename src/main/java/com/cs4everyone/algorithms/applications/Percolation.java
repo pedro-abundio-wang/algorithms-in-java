@@ -1,4 +1,6 @@
-package com.cs4everyone.algorithms.union.find;
+package com.cs4everyone.algorithms.applications;
+
+import com.cs4everyone.algorithms.union.find.WeightedPathHalvingUF;
 
 public class Percolation {
 
