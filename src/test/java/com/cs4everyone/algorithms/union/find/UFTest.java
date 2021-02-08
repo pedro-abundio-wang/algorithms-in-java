@@ -1,6 +1,6 @@
 package com.cs4everyone.algorithms.union.find;
 
-import com.cs4everyone.algorithms.utils.Datasets;
+import com.cs4everyone.algorithms.utils.In;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -9,85 +9,77 @@ import java.net.URL;
 
 public class UFTest {
 
-    @Test
-    public void quickFindUFTest() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL url = classLoader.getResource(Datasets.LARGE_UF.getName());
-        BufferedReader reader = new BufferedReader(new FileReader(url.getFile()));
-        String line = reader.readLine();
-        QuickFindUF uf = new QuickFindUF(Integer.parseInt(line));
-        while ((line = reader.readLine()) != null) {
-            int p = Integer.parseInt(line.split(StringUtils.SPACE)[0]);
-            int q = Integer.parseInt(line.split(StringUtils.SPACE)[1]);
-            uf.union(p, q);
-            System.out.println(p + " " + q);
-        }
-        System.out.println(uf.count() + " components");
+  private static final String largeUF = "largeUF.txt";
+  private static final String tinyUF = "tinyUF.txt";
+  private static final String mediumUF = "mediumUF.txt";
+
+  @Test
+  public void quickFindUFTest() throws IOException {
+    In in = new In(mediumUF);
+    int n = in.readInt();
+    QuickFindUF uf = new QuickFindUF(n);
+    while (!in.isEmpty()) {
+      int p = in.readInt();
+      int q = in.readInt();
+      uf.union(p, q);
+      System.out.println(p + " " + q);
     }
+    System.out.println(uf.count() + " components");
+  }
 
-    @Test
-    public void quickUnionUFTest() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL url = classLoader.getResource(Datasets.LARGE_UF.getName());
-        BufferedReader reader = new BufferedReader(new FileReader(url.getFile()));
-        String line = reader.readLine();
-        QuickUnionUF uf = new QuickUnionUF(Integer.parseInt(line));
-        while ((line = reader.readLine()) != null) {
-            int p = Integer.parseInt(line.split(StringUtils.SPACE)[0]);
-            int q = Integer.parseInt(line.split(StringUtils.SPACE)[1]);
-            uf.union(p, q);
-            System.out.println(p + " " + q);
-        }
-        System.out.println(uf.count() + " components");
+  @Test
+  public void quickUnionUFTest() throws IOException {
+    In in = new In(mediumUF);
+    int n = in.readInt();
+    QuickUnionUF uf = new QuickUnionUF(n);
+    while (!in.isEmpty()) {
+      int p = in.readInt();
+      int q = in.readInt();
+      uf.union(p, q);
+      System.out.println(p + " " + q);
     }
+    System.out.println(uf.count() + " components");
+  }
 
-    @Test
-    public void weightedQuickUnionUFTest() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL url = classLoader.getResource(Datasets.LARGE_UF.getName());
-        BufferedReader reader = new BufferedReader(new FileReader(url.getFile()));
-        String line = reader.readLine();
-        WeightedQuickUnionUF uf = new WeightedQuickUnionUF(Integer.parseInt(line));
-        while ((line = reader.readLine()) != null) {
-            int p = Integer.parseInt(line.split(StringUtils.SPACE)[0]);
-            int q = Integer.parseInt(line.split(StringUtils.SPACE)[1]);
-            uf.union(p, q);
-            System.out.println(p + " " + q);
-        }
-        System.out.println(uf.count() + " components");
+  @Test
+  public void weightedQuickUnionUFTest() throws IOException {
+    In in = new In(mediumUF);
+    int n = in.readInt();
+    WeightedQuickUnionUF uf = new WeightedQuickUnionUF(n);
+    while (!in.isEmpty()) {
+      int p = in.readInt();
+      int q = in.readInt();
+      uf.union(p, q);
+      System.out.println(p + " " + q);
     }
+    System.out.println(uf.count() + " components");
+  }
 
-
-    @Test
-    public void weightedPathHalvingUFTest() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL url = classLoader.getResource(Datasets.LARGE_UF.getName());
-        BufferedReader reader = new BufferedReader(new FileReader(url.getFile()));
-        String line = reader.readLine();
-        WeightedPathHalvingUF uf = new WeightedPathHalvingUF(Integer.parseInt(line));
-        while ((line = reader.readLine()) != null) {
-            int p = Integer.parseInt(line.split(StringUtils.SPACE)[0]);
-            int q = Integer.parseInt(line.split(StringUtils.SPACE)[1]);
-            uf.union(p, q);
-            System.out.println(p + " " + q);
-        }
-        System.out.println(uf.count() + " components");
+  @Test
+  public void weightedPathHalvingUFTest() throws IOException {
+    In in = new In(mediumUF);
+    int n = in.readInt();
+    WeightedPathHalvingUF uf = new WeightedPathHalvingUF(n);
+    while (!in.isEmpty()) {
+      int p = in.readInt();
+      int q = in.readInt();
+      uf.union(p, q);
+      System.out.println(p + " " + q);
     }
+    System.out.println(uf.count() + " components");
+  }
 
-    @Test
-    public void weightedPathCompressionUFTest() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL url = classLoader.getResource(Datasets.LARGE_UF.getName());
-        BufferedReader reader = new BufferedReader(new FileReader(url.getFile()));
-        String line = reader.readLine();
-        WeightedPathCompressionUF uf = new WeightedPathCompressionUF(Integer.parseInt(line));
-        while ((line = reader.readLine()) != null) {
-            int p = Integer.parseInt(line.split(StringUtils.SPACE)[0]);
-            int q = Integer.parseInt(line.split(StringUtils.SPACE)[1]);
-            uf.union(p, q);
-            System.out.println(p + " " + q);
-        }
-        System.out.println(uf.count() + " components");
+  @Test
+  public void weightedPathCompressionUFTest() throws IOException {
+    In in = new In(mediumUF);
+    int n = in.readInt();
+    WeightedPathCompressionUF uf = new WeightedPathCompressionUF(n);
+    while (!in.isEmpty()) {
+      int p = in.readInt();
+      int q = in.readInt();
+      uf.union(p, q);
+      System.out.println(p + " " + q);
     }
-
+    System.out.println(uf.count() + " components");
+  }
 }
