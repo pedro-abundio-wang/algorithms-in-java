@@ -1,5 +1,6 @@
 package com.cs4everyone.algorithms.queue;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -14,6 +15,10 @@ public class ResizingArrayQueue<T> implements Iterable<T> {
   private int size;
 
   private T[] array;
+
+  private int enqueueCount;
+
+  private int dequeueCount;
 
   public ResizingArrayQueue() {
     head = 0;
@@ -71,20 +76,33 @@ public class ResizingArrayQueue<T> implements Iterable<T> {
   }
 
   public Iterator<T> iterator() {
-    return new ArrayIterator();
+    return new ArrayIterator(enqueueCount, dequeueCount);
   }
 
   private class ArrayIterator implements Iterator<T> {
 
     public int i = 0;
 
-    public ArrayIterator() {}
+    private int enqueueCountSnapshot;
+
+    private int dequeueCountSnapshot;
+
+    public ArrayIterator(int enqueueCountSnapshot, int dequeueCountSnapshot) {
+      this.enqueueCountSnapshot = enqueueCountSnapshot;
+      this.dequeueCountSnapshot = dequeueCountSnapshot;
+    }
 
     public boolean hasNext() {
+      if (enqueueCountSnapshot != enqueueCount || dequeueCountSnapshot != dequeueCount) {
+        throw new ConcurrentModificationException();
+      }
       return i < size;
     }
 
     public T next() {
+      if (enqueueCountSnapshot != enqueueCount || dequeueCountSnapshot != dequeueCount) {
+        throw new ConcurrentModificationException();
+      }
       if (!hasNext()) throw new NoSuchElementException();
       T item = array[(i + head) % array.length];
       i++;

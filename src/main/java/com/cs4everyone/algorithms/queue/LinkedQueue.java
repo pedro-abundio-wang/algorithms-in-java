@@ -2,6 +2,7 @@ package com.cs4everyone.algorithms.queue;
 
 import com.cs4everyone.algorithms.stack.LinkedStack;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -13,6 +14,10 @@ public class LinkedQueue<T> implements Iterable<T> {
 
   private int size;
 
+  private int enqueueCount;
+
+  private int dequeueCount;
+
   private class LinkedNode {
     private T item;
     private LinkedNode next;
@@ -22,15 +27,27 @@ public class LinkedQueue<T> implements Iterable<T> {
 
     private LinkedNode current;
 
-    public LinkedIterator(LinkedNode current) {
+    private int enqueueCountSnapshot;
+
+    private int dequeueCountSnapshot;
+
+    public LinkedIterator(LinkedNode current, int enqueueCountSnapshot, int dequeueCountSnapshot) {
       this.current = current;
+      this.enqueueCountSnapshot = enqueueCountSnapshot;
+      this.dequeueCountSnapshot = dequeueCountSnapshot;
     }
 
     public boolean hasNext() {
+      if (enqueueCountSnapshot != enqueueCount || dequeueCountSnapshot != dequeueCount) {
+        throw new ConcurrentModificationException();
+      }
       return current != null;
     }
 
     public T next() {
+      if (enqueueCountSnapshot != enqueueCount || dequeueCountSnapshot != dequeueCount) {
+        throw new ConcurrentModificationException();
+      }
       if (!hasNext()) throw new NoSuchElementException();
       T item = current.item;
       current = current.next;
@@ -50,6 +67,7 @@ public class LinkedQueue<T> implements Iterable<T> {
     if (isEmpty()) {
       tail = null;
     }
+    dequeueCount++;
     return item;
   }
 
@@ -67,6 +85,7 @@ public class LinkedQueue<T> implements Iterable<T> {
     } else {
       backup.next = tail;
     }
+    enqueueCount++;
     this.size++;
   }
 
@@ -79,7 +98,7 @@ public class LinkedQueue<T> implements Iterable<T> {
   }
 
   public Iterator<T> iterator() {
-    return new LinkedIterator(head);
+    return new LinkedIterator(head, enqueueCount, dequeueCount);
   }
 
   public String toString() {

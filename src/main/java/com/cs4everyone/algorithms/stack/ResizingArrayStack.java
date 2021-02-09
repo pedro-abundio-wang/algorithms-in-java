@@ -1,5 +1,6 @@
 package com.cs4everyone.algorithms.stack;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -10,6 +11,10 @@ public class ResizingArrayStack<T> implements Iterable<T> {
   private T[] array;
 
   private int top;
+
+  private int pushCount;
+
+  private int popCount;
 
   public ResizingArrayStack() {
     array = (T[]) new Object[INIT_CAPACITY];
@@ -57,22 +62,34 @@ public class ResizingArrayStack<T> implements Iterable<T> {
   }
 
   public Iterator<T> iterator() {
-    return new ArrayIterator();
+    return new ArrayIterator(top, pushCount, popCount);
   }
 
   private class ArrayIterator implements Iterator<T> {
 
     private int current;
 
-    public ArrayIterator() {
-      current = top;
+    private int pushCountSnapshot;
+
+    private int popCountSnapshot;
+
+    public ArrayIterator(int current, int pushCountSnapshot, int popCountSnapshot) {
+      this.current = current;
+      this.pushCountSnapshot = pushCountSnapshot;
+      this.popCountSnapshot = popCountSnapshot;
     }
 
     public boolean hasNext() {
+      if (pushCount != pushCountSnapshot || popCount != popCountSnapshot) {
+        throw new ConcurrentModificationException();
+      }
       return current > 0;
     }
 
     public T next() {
+      if (pushCount != pushCountSnapshot || popCount != popCountSnapshot) {
+        throw new ConcurrentModificationException();
+      }
       if (!hasNext()) {
         throw new NoSuchElementException();
       }
