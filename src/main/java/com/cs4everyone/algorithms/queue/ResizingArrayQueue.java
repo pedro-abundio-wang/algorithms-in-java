@@ -25,9 +25,11 @@ public class ResizingArrayQueue<T> implements Iterable<T> {
   public T dequeue() {
     if (isEmpty()) throw new NoSuchElementException("Queue underflow");
     T item = array[head];
-    head = (head++) % array.length;
+    array[head] = null;
+    head++;
+    head = head % array.length;
     this.size--;
-    if (size < array.length / 4) {
+    if (size > 0 && size == array.length / 4) {
       // resize array
       resize(array.length / 2);
     }
@@ -41,10 +43,10 @@ public class ResizingArrayQueue<T> implements Iterable<T> {
   }
 
   public void enqueue(T item) {
-    array[tail] = item;
-    tail = (tail++) % array.length;
+    array[tail++] = item;
+    tail = tail % array.length;
     this.size++;
-    if (head == tail) {
+    if (this.size == array.length) {
       // resize array
       resize(2 * array.length);
     }
@@ -63,9 +65,9 @@ public class ResizingArrayQueue<T> implements Iterable<T> {
     for (int i = 0; i < this.size; i++) {
       copy[i] = array[(head + i) % array.length];
     }
+    array = copy;
     head = 0;
     tail = size;
-    array = copy;
   }
 
   public Iterator<T> iterator() {

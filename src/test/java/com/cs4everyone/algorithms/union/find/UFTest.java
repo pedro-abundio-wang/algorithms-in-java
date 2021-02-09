@@ -9,9 +9,9 @@ import java.net.URL;
 
 public class UFTest {
 
-  private static final String largeUF = "largeUF.txt";
   private static final String tinyUF = "tinyUF.txt";
   private static final String mediumUF = "mediumUF.txt";
+  private static final String largeUF = "largeUF.txt";
 
   @Test
   public void quickFindUFTest() throws IOException {

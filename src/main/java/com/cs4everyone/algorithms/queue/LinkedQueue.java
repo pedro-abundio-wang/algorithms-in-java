@@ -31,9 +31,7 @@ public class LinkedQueue<T> implements Iterable<T> {
     }
 
     public T next() {
-      if (!hasNext()) {
-        throw new NoSuchElementException();
-      }
+      if (!hasNext()) throw new NoSuchElementException();
       T item = current.item;
       current = current.next;
       return item;
@@ -73,7 +71,7 @@ public class LinkedQueue<T> implements Iterable<T> {
   }
 
   public boolean isEmpty() {
-    return this.size == 0;
+    return this.head == null;
   }
 
   public int size() {

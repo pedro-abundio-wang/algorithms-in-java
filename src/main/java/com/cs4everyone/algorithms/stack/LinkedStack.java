@@ -62,7 +62,7 @@ public class LinkedStack<T> implements Iterable<T> {
   }
 
   public boolean isEmpty() {
-    return this.size == 0;
+    return this.top == null;
   }
 
   public int size() {

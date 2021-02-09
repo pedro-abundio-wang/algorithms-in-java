@@ -20,15 +20,13 @@ public class ResizingArrayStack<T> implements Iterable<T> {
     if (top == array.length) {
       resize(2 * array.length);
     }
-    array[top] = item;
-    top++;
+    array[top++] = item;
   }
 
   public T pop() {
     if (isEmpty()) throw new NoSuchElementException("Stack underflow");
-    T item = array[top - 1];
-    array[top - 1] = null;
-    top--;
+    T item = array[--top];
+    array[top] = null;
     if (top > 0 && top == array.length / 4) {
       resize(array.length / 2);
     }
@@ -40,7 +38,7 @@ public class ResizingArrayStack<T> implements Iterable<T> {
     return array[top - 1];
   }
 
-  private boolean isEmpty() {
+  public boolean isEmpty() {
     return top == 0;
   }
 
@@ -59,27 +57,26 @@ public class ResizingArrayStack<T> implements Iterable<T> {
   }
 
   public Iterator<T> iterator() {
-    return new ReverseArrayIterator();
+    return new ArrayIterator();
   }
 
-  private class ReverseArrayIterator implements Iterator<T> {
+  private class ArrayIterator implements Iterator<T> {
 
     private int current;
 
-    public ReverseArrayIterator() {
-      current = top - 1;
+    public ArrayIterator() {
+      current = top;
     }
 
     public boolean hasNext() {
-      return current >= 0;
+      return current > 0;
     }
 
     public T next() {
       if (!hasNext()) {
         throw new NoSuchElementException();
       }
-      T item = array[current];
-      current--;
+      T item = array[--current];
       return item;
     }
 
