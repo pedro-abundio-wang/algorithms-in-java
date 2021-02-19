@@ -5,8 +5,11 @@ public class Shell {
   public static void sort(Comparable[] array) {
 
     int h = 1;
-    while (h < array.length / 3) h = 3 * h + 1;
+    while (h < array.length / 3) {
+      h = 3 * h + 1;
+    }
 
+    // h-sort
     while (h >= 1) {
       for (int i = h; i < array.length; i++) {
         for (int j = i; j >= h; j = j - h) {
