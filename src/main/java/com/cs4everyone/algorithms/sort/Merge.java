@@ -1,7 +1,5 @@
 package com.cs4everyone.algorithms.sort;
 
-import java.awt.*;
-
 public class Merge {
 
   public static void sort(Comparable[] array) {
@@ -23,8 +21,8 @@ public class Merge {
   }
 
   private static void merge(Comparable[] array, Comparable[] aux, int low, int mid, int high) {
-    for (int k = low; k <= high; k++) {
-      aux[k] = array[k];
+    for (int i = low; i <= high; i++) {
+      aux[i] = array[i];
     }
     int i = low;
     int j = mid + 1;

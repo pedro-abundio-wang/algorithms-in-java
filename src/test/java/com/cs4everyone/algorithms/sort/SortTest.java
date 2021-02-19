@@ -36,4 +36,14 @@ public class SortTest {
     }
   }
 
+  @Test
+  public void mergeTest() {
+    In in = new In("words3.txt");
+    String[] array = in.readAllStrings();
+    Merge.sort(array);
+    for (int i = 0; i < array.length; i++) {
+      StdOut.println(array[i]);
+    }
+  }
+
 }
