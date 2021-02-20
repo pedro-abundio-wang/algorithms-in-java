@@ -1,7 +1,6 @@
 package com.cs4everyone.algorithms.stack;
 
 import com.cs4everyone.algorithms.utils.In;
-import com.cs4everyone.algorithms.utils.StdIn;
 import com.cs4everyone.algorithms.utils.StdOut;
 import org.junit.Test;
 

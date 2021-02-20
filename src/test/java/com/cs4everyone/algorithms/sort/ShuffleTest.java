@@ -1,6 +1,5 @@
 package com.cs4everyone.algorithms.sort;
 
-import com.cs4everyone.algorithms.queue.LinkedQueue;
 import com.cs4everyone.algorithms.utils.In;
 import com.cs4everyone.algorithms.utils.StdOut;
 import org.junit.Test;
