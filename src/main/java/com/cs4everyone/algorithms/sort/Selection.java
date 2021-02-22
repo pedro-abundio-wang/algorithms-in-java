@@ -1,5 +1,7 @@
 package com.cs4everyone.algorithms.sort;
 
+import java.util.Comparator;
+
 public class Selection {
 
   public static void sort(Comparable[] array) {
@@ -16,6 +18,10 @@ public class Selection {
 
   private static boolean less(Comparable a, Comparable b) {
     return a.compareTo(b) < 0;
+  }
+
+  private static boolean less(Comparator comparator, Comparable a, Comparable b) {
+    return comparator.compare(a, b) < 0;
   }
 
   private static void swap(Comparable[] array, int i, int j) {

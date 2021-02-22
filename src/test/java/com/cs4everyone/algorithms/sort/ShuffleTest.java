@@ -13,7 +13,7 @@ public class ShuffleTest {
     String[] cards = in.readAllStrings();
 
     // shuffle the array
-    KnuthShuffle.shuffle(cards);
+    Knuth.shuffle(cards);
 
     // print results.
     for (int i = 0; i < cards.length; i++) StdOut.println(cards[i]);

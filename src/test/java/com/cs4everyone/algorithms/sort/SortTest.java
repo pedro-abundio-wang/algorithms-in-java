@@ -46,4 +46,23 @@ public class SortTest {
     }
   }
 
+  @Test
+  public void quickTest() {
+    In in = new In("words3.txt");
+    String[] array = in.readAllStrings();
+    Quick.sort(array);
+    for (int i = 0; i < array.length; i++) {
+      StdOut.println(array[i]);
+    }
+  }
+
+  @Test
+  public void quick3wayTest() {
+    In in = new In("words3.txt");
+    String[] array = in.readAllStrings();
+    Quick3way.sort(array);
+    for (int i = 0; i < array.length; i++) {
+      StdOut.println(array[i]);
+    }
+  }
 }

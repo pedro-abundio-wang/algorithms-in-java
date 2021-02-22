@@ -2,7 +2,7 @@ package com.cs4everyone.algorithms.sort;
 
 import java.util.Random;
 
-public class KnuthShuffle {
+public class Knuth {
 
   // Knuth shuffle
 
