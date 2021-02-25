@@ -1,4 +1,4 @@
-package com.cs4everyone.algorithms.applications;
+package com.cs4everyone.algorithms.applications.percolation;
 
 public class PercolationStats {
 

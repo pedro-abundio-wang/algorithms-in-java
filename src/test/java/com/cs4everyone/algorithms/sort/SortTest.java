@@ -65,4 +65,14 @@ public class SortTest {
       StdOut.println(array[i]);
     }
   }
+
+  @Test
+  public void heapTest() {
+    In in = new In("words3.txt");
+    String[] array = in.readAllStrings();
+    Heap.sort(array);
+    for (int i = 0; i < array.length; i++) {
+      StdOut.println(array[i]);
+    }
+  }
 }

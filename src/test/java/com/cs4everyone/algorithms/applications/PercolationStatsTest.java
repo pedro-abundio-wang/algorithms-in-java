@@ -1,5 +1,6 @@
 package com.cs4everyone.algorithms.applications;
 
+import com.cs4everyone.algorithms.applications.percolation.PercolationStats;
 import org.junit.Test;
 
 public class PercolationStatsTest {
