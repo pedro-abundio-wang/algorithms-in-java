@@ -1,7 +1,5 @@
 package com.cs4everyone.algorithms.queue;
 
-import com.cs4everyone.algorithms.stack.LinkedStack;
-
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
