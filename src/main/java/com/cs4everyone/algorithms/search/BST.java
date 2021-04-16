@@ -2,6 +2,8 @@ package com.cs4everyone.algorithms.search;
 
 import com.cs4everyone.algorithms.queue.LinkedQueue;
 
+import java.util.NoSuchElementException;
+
 public class BST<Key extends Comparable<Key>, Value> {
 
   private Node root;
@@ -37,6 +39,15 @@ public class BST<Key extends Comparable<Key>, Value> {
     return node.count;
   }
 
+  public int size(Key lo, Key hi) {
+    if (lo == null) throw new IllegalArgumentException("argument to size() is null");
+    if (hi == null) throw new IllegalArgumentException("argument to size() is null");
+
+    if (lo.compareTo(hi) > 0) return 0;
+    if (contains(hi)) return rank(hi) - rank(lo) + 1;
+    else return rank(hi) - rank(lo);
+  }
+
   public void put(Key key, Value val) {
     root = put(root, key, val);
   }
@@ -62,26 +73,24 @@ public class BST<Key extends Comparable<Key>, Value> {
     return null;
   }
 
-  public void delete(Key key) {
-    /* see next slides */
+  public Key min() {
+    if (isEmpty()) throw new NoSuchElementException("calls min() with empty symbol table");
+    return min(root).key;
   }
 
-  public Value min() {
-    Node node = root;
-    if (node == null) return null;
-    while (node.left != null) {
-      node = node.left;
-    }
-    return node.val;
+  private Node min(Node node) {
+    if (node.left == null) return node;
+    else return min(node.left);
   }
 
-  public Value max() {
-    Node node = root;
-    if (node == null) return null;
-    while (node.right != null) {
-      node = node.right;
-    }
-    return node.val;
+  public Key max() {
+    if (isEmpty()) throw new NoSuchElementException("calls max() with empty symbol table");
+    return max(root).key;
+  }
+
+  private Node max(Node node) {
+    if (node.right == null) return node;
+    else return max(node.right);
   }
 
   public Key floor(Key key) {
@@ -145,6 +154,61 @@ public class BST<Key extends Comparable<Key>, Value> {
     if (leftSize > rank) return select(node.left, rank);
     else if (leftSize < rank) return select(node.right, rank - leftSize - 1);
     else return node.key;
+  }
+
+  public void deleteMin() {
+    root = deleteMin(root);
+  }
+
+  private Node deleteMin(Node node) {
+    if (node.left == null) return node.right;
+    node.left = deleteMin(node.left);
+    node.count = 1 + size(node.left) + size(node.right);
+    return node;
+  }
+
+  public void delete(Key key) {
+    root = delete(root, key);
+  }
+
+  private Node delete(Node node, Key key) {
+    if (node == null) return null;
+    int cmp = key.compareTo(node.key);
+    if (cmp < 0) node.left = delete(node.left, key);
+    else if (cmp > 0) node.right = delete(node.right, key);
+    else {
+      if (node.right == null) return node.left;
+      if (node.left == null) return node.right;
+      Node x = node;
+      node = min(x.right);
+      node.right = deleteMin(x.right);
+      node.left = x.left;
+    }
+    node.count = size(node.left) + size(node.right) + 1;
+    return node;
+  }
+
+  public Iterable<Key> keys() {
+    if (isEmpty()) return new LinkedQueue<Key>();
+    return keys(min(), max());
+  }
+
+  public Iterable<Key> keys(Key lo, Key hi) {
+    if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
+    if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
+
+    LinkedQueue<Key> queue = new LinkedQueue<Key>();
+    keys(root, queue, lo, hi);
+    return queue;
+  }
+
+  private void keys(Node node, LinkedQueue<Key> queue, Key lo, Key hi) {
+    if (node == null) return;
+    int cmplo = lo.compareTo(node.key);
+    int cmphi = hi.compareTo(node.key);
+    if (cmplo < 0) keys(node.left, queue, lo, hi);
+    if (cmplo <= 0 && cmphi >= 0) queue.enqueue(node.key);
+    if (cmphi > 0) keys(node.right, queue, lo, hi);
   }
 
   public Iterable<Key> iterator() {
