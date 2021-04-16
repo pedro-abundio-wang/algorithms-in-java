@@ -204,11 +204,11 @@ public class BST<Key extends Comparable<Key>, Value> {
 
   private void keys(Node node, LinkedQueue<Key> queue, Key lo, Key hi) {
     if (node == null) return;
-    int cmplo = lo.compareTo(node.key);
-    int cmphi = hi.compareTo(node.key);
-    if (cmplo < 0) keys(node.left, queue, lo, hi);
-    if (cmplo <= 0 && cmphi >= 0) queue.enqueue(node.key);
-    if (cmphi > 0) keys(node.right, queue, lo, hi);
+    int cmpLo = lo.compareTo(node.key);
+    int cmpHi = hi.compareTo(node.key);
+    if (cmpLo < 0) keys(node.left, queue, lo, hi);
+    if (cmpLo <= 0 && cmpHi >= 0) queue.enqueue(node.key);
+    if (cmpHi > 0) keys(node.right, queue, lo, hi);
   }
 
   public Iterable<Key> iterator() {
