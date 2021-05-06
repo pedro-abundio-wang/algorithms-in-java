@@ -1,4 +1,4 @@
-package com.cs4everyone.algorithms.search;
+package com.cs4everyone.algorithms.symbol.table;
 
 import com.cs4everyone.algorithms.queue.LinkedQueue;
 
@@ -25,27 +25,13 @@ public class BST<Key extends Comparable<Key>, Value> {
     return size(root);
   }
 
-  public boolean isEmpty() {
-    return size() == 0;
-  }
-
-  public boolean contains(Key key) {
-    if (key == null) throw new IllegalArgumentException("argument to contains() is null");
-    return get(key) != null;
-  }
-
   private int size(Node node) {
     if (node == null) return 0;
     return node.count;
   }
 
-  public int size(Key lo, Key hi) {
-    if (lo == null) throw new IllegalArgumentException("argument to size() is null");
-    if (hi == null) throw new IllegalArgumentException("argument to size() is null");
-
-    if (lo.compareTo(hi) > 0) return 0;
-    if (contains(hi)) return rank(hi) - rank(lo) + 1;
-    else return rank(hi) - rank(lo);
+  public boolean isEmpty() {
+    return size() == 0;
   }
 
   public void put(Key key, Value val) {
@@ -71,6 +57,11 @@ public class BST<Key extends Comparable<Key>, Value> {
       else return node.val;
     }
     return null;
+  }
+
+  public boolean contains(Key key) {
+    if (key == null) throw new IllegalArgumentException("argument to contains() is null");
+    return get(key) != null;
   }
 
   public Key min() {
@@ -128,6 +119,7 @@ public class BST<Key extends Comparable<Key>, Value> {
   }
 
   public int rank(Key key) {
+    // How many keys < a given key ?
     return rank(root, key);
   }
 
@@ -139,6 +131,15 @@ public class BST<Key extends Comparable<Key>, Value> {
     else return size(node.left);
   }
 
+  public int size(Key lo, Key hi) {
+    if (lo == null) throw new IllegalArgumentException("argument to size() is null");
+    if (hi == null) throw new IllegalArgumentException("argument to size() is null");
+
+    if (lo.compareTo(hi) > 0) return 0;
+    if (contains(hi)) return rank(hi) - rank(lo) + 1;
+    else return rank(hi) - rank(lo);
+  }
+
   public Key select(int rank) {
     if (rank < 0 || rank >= size()) {
       throw new IllegalArgumentException("argument to select() is invalid: " + rank);
@@ -146,9 +147,9 @@ public class BST<Key extends Comparable<Key>, Value> {
     return select(root, rank);
   }
 
-  // Return key in BST rooted at node of given rank.
-  // Precondition: rank is in legal range.
   private Key select(Node node, int rank) {
+    // Return key in BST rooted at node of given rank.
+    // Precondition: rank is in legal range.
     if (node == null) return null;
     int leftSize = size(node.left);
     if (leftSize > rank) return select(node.left, rank);

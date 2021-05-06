@@ -1,6 +1,7 @@
-package com.cs4everyone.algorithms.search;
+package com.cs4everyone.algorithms.symbol.table;
 
 import com.cs4everyone.algorithms.utils.StdOut;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 public class BSTTest {
@@ -8,7 +9,7 @@ public class BSTTest {
   @Test
   public void test() {
     String test = "S E A R C H E X A M P L E";
-    String[] keys = test.split(" ");
+    String[] keys = test.split(StringUtils.SPACE);
     int n = keys.length;
     BST<String, Integer> bst = new BST<String, Integer>();
     for (int i = 0; i < n; i++) bst.put(keys[i], i);
@@ -35,13 +36,12 @@ public class BSTTest {
     StdOut.println("-------------------------");
     for (char i = 'A'; i <= 'X'; i++) {
       String s = i + "";
-      StdOut.printf(
-          "%2s %4d %4s %4s\n", s, bst.rank(s), bst.floor(s), bst.ceil(s));
+      StdOut.printf("%2s %4d %4s %4s\n", s, bst.rank(s), bst.floor(s), bst.ceil(s));
     }
     StdOut.println();
 
     // test range search and range count
-    String[] from = {"A", "Z", "X", "0", "B", "C"};
+    String[] from = {"A", "Z", "X", "O", "B", "C"};
     String[] to = {"Z", "A", "X", "Z", "G", "L"};
     StdOut.println("range search");
     StdOut.println("-------------------");

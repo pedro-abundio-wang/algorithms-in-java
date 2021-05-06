@@ -1,4 +1,4 @@
-package com.cs4everyone.algorithms.search;
+package com.cs4everyone.algorithms.symbol.table;
 
 import com.cs4everyone.algorithms.utils.In;
 import com.cs4everyone.algorithms.utils.StdOut;
