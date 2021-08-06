@@ -18,7 +18,7 @@ public class WeightedPathCompressionUF {
         }
     }
 
-    public int find(int p) {
+    public int root(int p) {
         int rootP = p;
         while (rootP != parent[rootP]) {
             rootP = parent[rootP];
@@ -39,12 +39,12 @@ public class WeightedPathCompressionUF {
     }
 
     public boolean isConnected(int p, int q) {
-        return find(p) == find(q);
+        return root(p) == root(q);
     }
 
     public void union(int p, int q) {
-        int rootP = find(p);
-        int rootQ = find(q);
+        int rootP = root(p);
+        int rootQ = root(q);
         if (rootP == rootQ) return;
 
         if (size[rootP] < size[rootQ]) {

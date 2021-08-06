@@ -18,7 +18,7 @@ public class QuickUnionUF {
         return count;
     }
 
-    public int find(int p) {
+    public int root(int p) {
         while (p != parent[p]) {
             p = parent[p];
         }
@@ -26,12 +26,12 @@ public class QuickUnionUF {
     }
 
     public boolean isConnected(int p, int q) {
-        return find(p) == find(q);
+        return root(p) == root(q);
     }
 
     public void union(int p, int q) {
-        int rootP = find(p);
-        int rootQ = find(q);
+        int rootP = root(p);
+        int rootQ = root(q);
         if (rootP == rootQ) return;
         parent[rootP] = rootQ;
         count--;

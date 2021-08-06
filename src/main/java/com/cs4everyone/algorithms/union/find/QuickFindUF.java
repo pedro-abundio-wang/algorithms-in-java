@@ -2,15 +2,15 @@ package com.cs4everyone.algorithms.union.find;
 
 public class QuickFindUF {
 
-    private int[] id;
+    private int[] component;
 
     private int count;
 
     public QuickFindUF(int n) {
         count = n;
-        id = new int[n];
+        component = new int[n];
         for (int i = 0; i < n; i++){
-            id[i] = i;
+            component[i] = i;
         }
     }
 
@@ -18,23 +18,23 @@ public class QuickFindUF {
         return count;
     }
 
-    public int find(int p) {
-        return id[p];
+    public int component(int p) {
+        return component[p];
     }
 
     public boolean isConnected(int p, int q) {
-        return find(p) == find(q);
+        return component(p) == component(q);
     }
 
     public void union(int p, int q) {
-        int pid = id[p];
-        int qid = id[q];
+        int pid = component[p];
+        int qid = component[q];
 
         if (pid == qid) return;
 
-        for (int i = 0; i < id.length; i++){
-            if (id[i] == pid) {
-                id[i] = qid;
+        for (int i = 0; i < component.length; i++){
+            if (component[i] == pid) {
+                component[i] = qid;
             }
         }
 
