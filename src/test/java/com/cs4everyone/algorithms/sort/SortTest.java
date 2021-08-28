@@ -37,10 +37,30 @@ public class SortTest {
   }
 
   @Test
+  public void bubbleTest() {
+    In in = new In("tiny.txt");
+    String[] array = in.readAllStrings();
+    Bubble.sort(array);
+    for (int i = 0; i < array.length; i++) {
+      StdOut.println(array[i]);
+    }
+  }
+
+  @Test
   public void mergeTest() {
     In in = new In("words3.txt");
     String[] array = in.readAllStrings();
     Merge.sort(array);
+    for (int i = 0; i < array.length; i++) {
+      StdOut.println(array[i]);
+    }
+  }
+
+  @Test
+  public void mergeBUTest() {
+    In in = new In("words3.txt");
+    String[] array = in.readAllStrings();
+    MergeBU.sort(array);
     for (int i = 0; i < array.length; i++) {
       StdOut.println(array[i]);
     }
@@ -61,6 +81,16 @@ public class SortTest {
     In in = new In("words3.txt");
     String[] array = in.readAllStrings();
     Quick3way.sort(array);
+    for (int i = 0; i < array.length; i++) {
+      StdOut.println(array[i]);
+    }
+  }
+
+  @Test
+  public void quickDualPivotTest() {
+    In in = new In("words3.txt");
+    String[] array = in.readAllStrings();
+    QuickDualPivot.sort(array);
     for (int i = 0; i < array.length; i++) {
       StdOut.println(array[i]);
     }
