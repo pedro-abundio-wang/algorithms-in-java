@@ -1,26 +1,17 @@
 package com.cs4everyone.algorithms.queue;
 
-public class MinPQ<Key extends Comparable<Key>> {
+import java.util.NoSuchElementException;
+
+public class MinPQ<Item extends Comparable<Item>> {
 
   private static final int INIT_CAPACITY = 8;
 
-  private Key[] priorityQueue;
+  private Item[] priorityQueue;
 
   private int size;
 
-  /**
-   * Initializes an empty priority queue with the given initial capacity.
-   *
-   * @param initCapacity the initial capacity of this priority queue
-   */
-  public MinPQ(int initCapacity) {
-    priorityQueue = (Key[]) new Comparable[initCapacity + 1];
-    size = 0;
-  }
-
-  /** Initializes an empty priority queue. */
   public MinPQ() {
-    this(INIT_CAPACITY);
+    priorityQueue = (Item[]) new Comparable[INIT_CAPACITY + 1];
   }
 
   public int size() {
@@ -31,20 +22,24 @@ public class MinPQ<Key extends Comparable<Key>> {
     return size == 0;
   }
 
-  public void insert(Key key) {
+  public void insert(Item item) {
     // double size of array if necessary
-    if (size == priorityQueue.length - 1) resize(2 * priorityQueue.length);
-    priorityQueue[++size] = key;
+    if (size == priorityQueue.length - 1) {
+      resize(2 * (priorityQueue.length - 1));
+    }
+    priorityQueue[++size] = item;
     swim(size);
   }
 
-  public Key delMin() {
-    Key min = priorityQueue[1];
+  public Item delMin() {
+    if (isEmpty()) throw new NoSuchElementException("max priority queue underflow");
+    Item min = priorityQueue[1];
     swap(1, size--);
     sink(1);
     // to avoid loitering and help with garbage collection
     priorityQueue[size + 1] = null;
-    if ((size > 0) && (size == (priorityQueue.length - 1) / 4)) resize(priorityQueue.length / 2);
+    if ((size > 0) && (size == (priorityQueue.length - 1) / 4))
+      resize((priorityQueue.length - 1) / 2);
     return min;
   }
 
@@ -65,10 +60,9 @@ public class MinPQ<Key extends Comparable<Key>> {
     }
   }
 
-  // resize the underlying array to have the given capacity
   private void resize(int capacity) {
-    Key[] copy = (Key[]) new Comparable[capacity];
-    for (int i = 1; i <= size; i++) {
+    Item[] copy = (Item[]) new Object[capacity + 1];
+    for (int i = 0; i <= size; i++) {
       copy[i] = priorityQueue[i];
     }
     priorityQueue = copy;
@@ -79,7 +73,7 @@ public class MinPQ<Key extends Comparable<Key>> {
   }
 
   private void swap(int i, int j) {
-    Key swap = priorityQueue[i];
+    Item swap = priorityQueue[i];
     priorityQueue[i] = priorityQueue[j];
     priorityQueue[j] = swap;
   }

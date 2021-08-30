@@ -44,10 +44,9 @@ public class MaxPQ<Item extends Comparable<Item>> {
     swap(1, size--);
     sink(1);
     priorityQueue[size + 1] = null;
-    if (size == (priorityQueue.length - 1) / 4) {
+    if ((size > 0) && size == (priorityQueue.length - 1) / 4) {
       resize((priorityQueue.length - 1) / 2);
     }
-
     return max;
   }
 
