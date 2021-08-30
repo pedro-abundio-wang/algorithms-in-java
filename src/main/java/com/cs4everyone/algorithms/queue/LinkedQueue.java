@@ -99,10 +99,12 @@ public class LinkedQueue<T> implements Iterable<T> {
     return new LinkedIterator(head, enqueueCount, dequeueCount);
   }
 
+  @Override
   public String toString() {
     StringBuilder buffer = new StringBuilder();
     for (T item : this) {
-      buffer.append(item + " ");
+      buffer.append(item);
+      buffer.append(' ');
     }
     return buffer.toString();
   }

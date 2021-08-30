@@ -38,6 +38,7 @@ public class ResizingArrayQueue<T> implements Iterable<T> {
       // resize array
       resize(array.length / 2);
     }
+    dequeueCount++;
     return item;
   }
 
@@ -55,6 +56,7 @@ public class ResizingArrayQueue<T> implements Iterable<T> {
       // resize array
       resize(2 * array.length);
     }
+    enqueueCount++;
   }
 
   public int size() {
@@ -112,5 +114,15 @@ public class ResizingArrayQueue<T> implements Iterable<T> {
     public void remove() {
       throw new UnsupportedOperationException("remove");
     }
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder buffer = new StringBuilder();
+    for (T item : this) {
+      buffer.append(item);
+      buffer.append(' ');
+    }
+    return buffer.toString();
   }
 }

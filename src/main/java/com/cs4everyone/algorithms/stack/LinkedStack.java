@@ -61,6 +61,7 @@ public class LinkedStack<T> implements Iterable<T> {
     top.item = item;
     top.next = backup;
     this.size++;
+    pushCount++;
   }
 
   public T pop() {
@@ -70,6 +71,7 @@ public class LinkedStack<T> implements Iterable<T> {
     T item = top.item;
     top = top.next;
     this.size--;
+    popCount++;
     return item;
   }
 

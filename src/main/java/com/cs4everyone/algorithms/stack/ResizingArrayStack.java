@@ -26,6 +26,7 @@ public class ResizingArrayStack<T> implements Iterable<T> {
       resize(2 * array.length);
     }
     array[top++] = item;
+    pushCount++;
   }
 
   public T pop() {
@@ -35,6 +36,7 @@ public class ResizingArrayStack<T> implements Iterable<T> {
     if (top > 0 && top == array.length / 4) {
       resize(array.length / 2);
     }
+    popCount++;
     return item;
   }
 
@@ -100,5 +102,15 @@ public class ResizingArrayStack<T> implements Iterable<T> {
     public void remove() {
       throw new UnsupportedOperationException("remove");
     }
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder buffer = new StringBuilder();
+    for (T item : this) {
+      buffer.append(item);
+      buffer.append(' ');
+    }
+    return buffer.toString();
   }
 }
