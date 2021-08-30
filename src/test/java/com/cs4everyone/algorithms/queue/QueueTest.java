@@ -32,8 +32,7 @@ public class QueueTest {
 
   @Test
   public void maxPQTest() {
-    int capacity = 10;
-    MaxPQ<String> priorityQueue = new MaxPQ<String>(capacity);
+    MaxPQ<String> priorityQueue = new MaxPQ<>();
     In in = new In("tinyPQ.txt");
     while (!in.isEmpty()) {
       String item = in.readString();

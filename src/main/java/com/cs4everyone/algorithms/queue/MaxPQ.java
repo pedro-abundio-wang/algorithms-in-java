@@ -1,13 +1,17 @@
 package com.cs4everyone.algorithms.queue;
 
-public class MaxPQ<Key extends Comparable<Key>> {
+import java.util.NoSuchElementException;
 
-  private Key[] priorityQueue;
+public class MaxPQ<Item extends Comparable<Item>> {
+
+  private static final int INIT_CAPACITY = 8;
+
+  private Item[] priorityQueue;
 
   private int size;
 
-  public MaxPQ(int capacity) {
-    priorityQueue = (Key[]) new Comparable[capacity + 1];
+  public MaxPQ() {
+    priorityQueue = (Item[]) new Comparable[INIT_CAPACITY + 1];
   }
 
   public int size() {
@@ -18,16 +22,32 @@ public class MaxPQ<Key extends Comparable<Key>> {
     return size == 0;
   }
 
-  public void insert(Key key) {
-    priorityQueue[++size] = key;
+  public void insert(Item item) {
+    if (size == priorityQueue.length - 1) {
+      resize(2 * (priorityQueue.length - 1));
+    }
+    priorityQueue[++size] = item;
     swim(size);
   }
 
-  public Key delMax() {
-    Key max = priorityQueue[1];
+  private void resize(int capacity) {
+    Item[] copy = (Item[]) new Object[capacity + 1];
+    for (int i = 0; i <= size; i++) {
+      copy[i] = priorityQueue[i];
+    }
+    priorityQueue = copy;
+  }
+
+  public Item delMax() {
+    if (isEmpty()) throw new NoSuchElementException("max priority queue underflow");
+    Item max = priorityQueue[1];
     swap(1, size--);
     sink(1);
     priorityQueue[size + 1] = null;
+    if (size == (priorityQueue.length - 1) / 4) {
+      resize((priorityQueue.length - 1) / 2);
+    }
+
     return max;
   }
 
@@ -53,7 +73,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
   }
 
   private void swap(int i, int j) {
-    Key swap = priorityQueue[i];
+    Item swap = priorityQueue[i];
     priorityQueue[i] = priorityQueue[j];
     priorityQueue[j] = swap;
   }
