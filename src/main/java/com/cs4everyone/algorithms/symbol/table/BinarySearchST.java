@@ -48,14 +48,6 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
     return get(key) != null;
   }
 
-  public Value get(Key key) {
-    if (key == null) throw new IllegalArgumentException("argument to get() is null");
-    if (isEmpty()) return null;
-    int i = rank(key);
-    if (i < size && keys[i].compareTo(key) == 0) return values[i];
-    return null;
-  }
-
   /**
    * Returns the number of keys in this symbol table strictly less than {@code key}.
    *
@@ -74,6 +66,14 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
       else return mid;
     }
     return lo;
+  }
+
+  public Value get(Key key) {
+    if (key == null) throw new IllegalArgumentException("argument to get() is null");
+    if (isEmpty()) return null;
+    int i = rank(key);
+    if (i < size && keys[i].compareTo(key) == 0) return values[i];
+    return null;
   }
 
   public void put(Key key, Value val) {
@@ -134,20 +134,6 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
     assert check();
   }
 
-  public void deleteMin() {
-    if (isEmpty()) throw new NoSuchElementException("Symbol table underflow error");
-    delete(min());
-  }
-
-  public void deleteMax() {
-    if (isEmpty()) throw new NoSuchElementException("Symbol table underflow error");
-    delete(max());
-  }
-
-  /***************************************************************************
-   *  Ordered symbol table methods.
-   ***************************************************************************/
-
   public Key min() {
     if (isEmpty()) throw new NoSuchElementException("called min() with empty symbol table");
     return keys[0];
@@ -156,6 +142,16 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
   public Key max() {
     if (isEmpty()) throw new NoSuchElementException("called max() with empty symbol table");
     return keys[size - 1];
+  }
+
+  public void deleteMin() {
+    if (isEmpty()) throw new NoSuchElementException("Symbol table underflow error");
+    delete(min());
+  }
+
+  public void deleteMax() {
+    if (isEmpty()) throw new NoSuchElementException("Symbol table underflow error");
+    delete(max());
   }
 
   public Key select(int k) {
@@ -204,30 +200,21 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
     return queue;
   }
 
-  /***************************************************************************
-   *  Check internal invariants.
-   ***************************************************************************/
-
   private boolean check() {
     return isSorted() && rankCheck();
   }
 
   // are the items in the array in ascending order?
   private boolean isSorted() {
-    for (int i = 1; i < size(); i++)
-      if (keys[i].compareTo(keys[i - 1]) < 0)
-        return false;
+    for (int i = 1; i < size(); i++) if (keys[i].compareTo(keys[i - 1]) < 0) return false;
     return true;
   }
 
   // check that rank(select(i)) = i
   private boolean rankCheck() {
+    for (int i = 0; i < size(); i++) if (i != rank(select(i))) return false;
     for (int i = 0; i < size(); i++)
-      if (i != rank(select(i)))
-        return false;
-    for (int i = 0; i < size(); i++)
-      if (keys[i].compareTo(select(rank(keys[i]))) != 0)
-        return false;
+      if (keys[i].compareTo(select(rank(keys[i]))) != 0) return false;
     return true;
   }
 }

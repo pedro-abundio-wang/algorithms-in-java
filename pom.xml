@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cs4everyone</groupId>
+    <groupId>com.cs4everyone</groupId>
     <artifactId>algorithm-in-java</artifactId>
     <version>1.0.0</version>
 
